@@ -1,0 +1,6 @@
+ftfy 
+regex 
+tqdm
+torch
+torchvision
+transformers
