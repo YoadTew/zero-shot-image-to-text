@@ -444,7 +444,7 @@ def run_arithmetic(args, imgs_path, img_weights):
     best_clip_idx = (torch.cat(encoded_captions) @ image_features.t()).squeeze().argmax().item()
 
     print(captions)
-    print('best clip:', 'A ' + captions[best_clip_idx])
+    print('best clip:', args.cond_text + captions[best_clip_idx])
 
 if __name__ == "__main__":
     args = get_args()
