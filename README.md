@@ -1,5 +1,5 @@
-# Pytorch Implementation of Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetics
-[[Paper]](https://arxiv.org/abs/2111.14447)
+# Pytorch Implementation of Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetic
+[[Paper]](https://arxiv.org/abs/2111.14447) [Colab is coming soon]
 
 ## Approach
 ![](git_images/Architecture.jpg)
@@ -17,7 +17,7 @@ $ python run.py
 --caption_img_path "example_images/captions/COCO_val2014_000000097017.jpg"
 ```
 
-### To run model on visual arithmetics:
+### To run model on visual arithmetic:
 
 ```bash
 $ python run.py 
