@@ -29,6 +29,7 @@ class CLIPTextGenerator:
     def __init__(self,
                  seed=0,
                  lm_model='gpt-2',
+                 forbidden_tokens_file_path='./forbidden_tokens.npy',
                  clip_checkpoints='./clip_checkpoints',
                  target_seq_length=15,
                  reset_context_delta=True,
@@ -65,7 +66,7 @@ class CLIPTextGenerator:
         self.lm_model.to(self.device)
         self.lm_model.eval()
 
-        self.forbidden_tokens = np.load('./forbidden_tokens.npy')
+        self.forbidden_tokens = np.load(forbidden_tokens_file_path)
         self.capital_letter_tokens = [self.lm_tokenizer.encoder[x] for x in self.lm_tokenizer.encoder.keys() if
                                       (x[0] == 'Ġ' and len(x) > 1 and x[1].isupper())]
 
