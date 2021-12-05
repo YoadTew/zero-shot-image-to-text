@@ -47,3 +47,14 @@ $ python run.py
 --end_factor 1.04 
 --caption_img_path "example_images/OCR/welcome_sign.jpg"
 ```
+
+## Credit
+If you find this work useful please consider citing it:
+```
+@article{tewel2021zeroclip,
+  title={Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetic},
+  author={Tewel, Yoad and Shalev, Yoav and Schwartz, Idan and Wolf, Lior},
+  journal={arXiv preprint arXiv:2111.14447},
+  year={2021}
+}
+```
