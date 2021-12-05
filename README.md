@@ -48,10 +48,10 @@ $ python run.py
 --caption_img_path "example_images/OCR/welcome_sign.jpg"
 ```
 
-## Credit
-If you find this work useful please consider citing it:
+## Citation
+Please cite our work if you use it in your research:
 ```
-@article{tewel2021zeroclip,
+@article{tewel2021zero,
   title={Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetic},
   author={Tewel, Yoad and Shalev, Yoav and Schwartz, Idan and Wolf, Lior},
   journal={arXiv preprint arXiv:2111.14447},
