@@ -1,6 +1,6 @@
 ftfy 
 regex 
 tqdm
-torch==1.9
+torch
 torchvision
 transformers
