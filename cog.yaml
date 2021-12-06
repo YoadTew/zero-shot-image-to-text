@@ -5,17 +5,7 @@ build:
     - "libgl1-mesa-glx"
     - "libglib2.0-0"
   python_packages:
-    - "ftfy==6.0.3"
-    - "regex==2021.10.8"
-    - "ipython==7.21.0"
-    - "Pillow==8.4.0"
-    - "numpy==1.19.2"
-    - "torch==1.7.1"
-    - "torchvision==0.8.2"
-    - "scipy==1.7.3"
-    - "opencv-python==4.5.4.60"
-    - "tqdm==4.62.3"
-    - "transformers==4.12.5"
-
+    - "git+https://github.com/openai/CLIP.git"
+    - "git+https://github.com/YoadTew/zero-shot-image-to-text.git"
 
 predict: "predict.py:Predictor"

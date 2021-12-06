@@ -6,7 +6,7 @@ from pathlib import Path
 import cog
 import argparse
 import torch
-from CLIP import clip
+import clip
 from model.ZeroCLIP import CLIPTextGenerator
 
 
@@ -27,10 +27,24 @@ class Predictor(cog.Predictor):
         default='Image of a',
         help="conditional text",
     )
-    def predict(self, image, cond_text):
+    @cog.input(
+        "beam_size",
+        type=int,
+        default=5, min=1, max=10,
+        help="Number of beams to use",
+    )
+    @cog.input(
+        "end_factor",
+        type=float,
+        default=1.01, min=1.0, max=1.10,
+        help="Higher value for shorter captions",
+    )
+    def predict(self, image, cond_text, beam_size, end_factor):
         self.args.cond_text = cond_text
+        self.text_generator.end_factor = end_factor
+
         image_features = self.text_generator.get_img_feature([str(image)], None)
-        captions = self.text_generator.run(image_features, self.args.cond_text, beam_size=self.args.beam_size)
+        captions = self.text_generator.run(image_features, self.args.cond_text, beam_size=beam_size)
         encoded_captions = [self.text_generator.clip.encode_text(clip.tokenize(c).to(self.text_generator.device))
                             for c in captions]
         encoded_captions = [x / x.norm(dim=-1, keepdim=True) for x in encoded_captions]
