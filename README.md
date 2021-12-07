@@ -1,7 +1,7 @@
 # Pytorch Implementation of Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetic
 [[Paper]](https://arxiv.org/abs/2111.14447) [Colab is coming soon] <a href="https://replicate.com/yoadtew/zero-shot-image-to-text"><img src="https://img.shields.io/static/v1?label=Replicate&message=Demo and Docker Image&color=blue"></a> 
 
-⭐***New:*** Run captioning configuration it in the [browser](https://replicate.com/yoadtew/zero-shot-image-to-text) using replicate.ai UI.
+⭐ ***New:*** Run captioning configuration it in the [browser](https://replicate.com/yoadtew/zero-shot-image-to-text) using replicate.ai UI.
 
 ## Approach
 ![](git_images/Architecture.jpg)
