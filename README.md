@@ -6,8 +6,11 @@
 ## Approach
 ![](git_images/Architecture.jpg)
 
-## Example
+## Example of capabilities
 ![](git_images/teaser.jpg)
+
+## Example of Visual-Semantic Arithmetic
+![](git_images/relations.jpg)
 
 ## Usage
 
