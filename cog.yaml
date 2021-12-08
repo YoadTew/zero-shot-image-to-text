@@ -7,7 +7,5 @@ build:
   python_packages:
     - "git+https://github.com/openai/CLIP.git"
     - "git+https://github.com/YoadTew/zero-shot-image-to-text.git"
-    - "torch==1.7.1"
-    - "transformers==4.12.5"
 
 predict: "predict.py:Predictor"

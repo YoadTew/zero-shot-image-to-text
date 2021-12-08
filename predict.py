@@ -9,6 +9,16 @@ import torch
 import clip
 from model.ZeroCLIP import CLIPTextGenerator
 
+def perplexity_score(text, lm_model, lm_tokenizer, device):
+    encodings = lm_tokenizer(f'{lm_tokenizer.bos_token + text}', return_tensors='pt')
+    input_ids = encodings.input_ids.to(device)
+    target_ids = input_ids.clone()
+
+    outputs = lm_model(input_ids, labels=target_ids)
+    log_likelihood = outputs[0]
+    ll = log_likelihood.item()
+
+    return ll
 
 class Predictor(cog.Predictor):
     def setup(self):
@@ -39,18 +49,45 @@ class Predictor(cog.Predictor):
         default=1.01, min=1.0, max=1.10,
         help="Higher value for shorter captions",
     )
-    def predict(self, image, cond_text, beam_size, end_factor):
+    @cog.input(
+        "max_seq_length",
+        type=int,
+        default=15, min=1, max=20,
+        help="Maximum number of tokens to generate",
+    )
+    @cog.input(
+        "ce_loss_scale",
+        type=float,
+        default=0.2, min=0.0, max=0.6,
+        help="Scale of cross-entropy loss with un-shifted language model",
+    )
+    def predict(self, image, cond_text, beam_size, end_factor, max_seq_length, ce_loss_scale):
         self.args.cond_text = cond_text
         self.text_generator.end_factor = end_factor
+        self.text_generator.target_seq_length = max_seq_length
+        self.text_generator.ce_scale = ce_loss_scale
 
         image_features = self.text_generator.get_img_feature([str(image)], None)
         captions = self.text_generator.run(image_features, self.args.cond_text, beam_size=beam_size)
+
+        # CLIP SCORE
         encoded_captions = [self.text_generator.clip.encode_text(clip.tokenize(c).to(self.text_generator.device))
                             for c in captions]
         encoded_captions = [x / x.norm(dim=-1, keepdim=True) for x in encoded_captions]
         best_clip_idx = (torch.cat(encoded_captions) @ image_features.t()).squeeze().argmax().item()
 
-        return self.args.cond_text + captions[best_clip_idx]
+        # Perplexity SCORE
+        ppl_scores = [perplexity_score(x, self.text_generator.lm_model, self.text_generator.lm_tokenizer, self.text_generator.device) for x in captions]
+        best_ppl_index = torch.tensor(ppl_scores).argmin().item()
+
+        best_clip_caption = self.args.cond_text + captions[best_clip_idx]
+        best_mixed = self.args.cond_text + captions[0]
+        best_PPL = self.args.cond_text + captions[best_ppl_index]
+
+        final = f'Best CLIP: {best_clip_caption} \nBest fluency: {best_PPL} \nBest mixed: {best_mixed}'
+
+        return final
+        # return self.args.cond_text + captions[best_clip_idx]
 
 
 def get_args():
