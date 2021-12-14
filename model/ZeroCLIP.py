@@ -350,7 +350,7 @@ class CLIPTextGenerator:
             if i == 0:
                 start_factor = 1.6
                 factor = start_factor if logits[beam_id, self.end_token] > 0 else (1 / start_factor)
-                logits[beam_id, token_idx] /= factor
+                logits[beam_id, self.end_token] /= factor
 
             for token_idx in list(self.forbidden_tokens):
                 factor = self.forbidden_factor if logits[beam_id, token_idx] > 0 else (1 / self.forbidden_factor)
