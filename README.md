@@ -1,5 +1,5 @@
 # Pytorch Implementation of Zero-Shot Image-to-Text Generation for Visual-Semantic Arithmetic
-[[Paper]](https://arxiv.org/abs/2111.14447) [[Notebook]](https://www.kaggle.com/yoavstau/zero-shot-image-to-text/notebook) <a href="https://replicate.com/yoadtew/zero-shot-image-to-text"><img src="https://img.shields.io/static/v1?label=Replicate&message=Demo and Docker Image&color=blue"></a> 
+[[Paper]](https://arxiv.org/abs/2111.14447) [[Notebook]](https://www.kaggle.com/yoavstau/zero-shot-image-to-text/notebook) [[Caption Demo]](https://replicate.com/yoadtew/zero-shot-image-to-text) [[Arithmetic Demo]](https://replicate.com/yoadtew/arithmetic)
 
 ⭐ ***New:*** Run captioning configuration it in the [browser](https://replicate.com/yoadtew/zero-shot-image-to-text) using replicate.ai UI.
 
