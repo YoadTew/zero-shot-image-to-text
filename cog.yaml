@@ -9,3 +9,4 @@ build:
     - "git+https://github.com/YoadTew/zero-shot-image-to-text.git"
 
 predict: "predict.py:Predictor"
+#predict: "predict_arithmetic.py:Predictor"

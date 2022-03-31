@@ -2,6 +2,7 @@ import argparse
 import torch
 import clip
 from model.ZeroCLIP import CLIPTextGenerator
+from model.ZeroCLIP_batched import CLIPTextGenerator as CLIPTextGenerator_multigpu
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -26,6 +27,8 @@ def get_args():
     parser.add_argument("--forbidden_factor", type=float, default=20, help="Factor to decrease forbidden tokens")
     parser.add_argument("--beam_size", type=int, default=5)
 
+    parser.add_argument("--multi_gpu", action="store_true")
+
     parser.add_argument('--run_type',
                         default='caption',
                         nargs='?',
@@ -45,7 +48,10 @@ def get_args():
     return args
 
 def run(args, img_path):
-    text_generator = CLIPTextGenerator(**vars(args))
+    if args.multi_gpu:
+        text_generator = CLIPTextGenerator_multigpu(**vars(args))
+    else:
+        text_generator = CLIPTextGenerator(**vars(args))
 
     image_features = text_generator.get_img_feature([img_path], None)
     captions = text_generator.run(image_features, args.cond_text, beam_size=args.beam_size)
@@ -58,7 +64,10 @@ def run(args, img_path):
     print('best clip:', args.cond_text + captions[best_clip_idx])
 
 def run_arithmetic(args, imgs_path, img_weights):
-    text_generator = CLIPTextGenerator(**vars(args))
+    if args.multi_gpu:
+        text_generator = CLIPTextGenerator_multigpu(**vars(args))
+    else:
+        text_generator = CLIPTextGenerator(**vars(args))
 
     image_features = text_generator.get_combined_feature(imgs_path, [], img_weights, None)
     captions = text_generator.run(image_features, args.cond_text, beam_size=args.beam_size)
