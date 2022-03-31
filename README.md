@@ -53,6 +53,15 @@ $ python run.py
 --caption_img_path "example_images/OCR/welcome_sign.jpg"
 ```
 
+### For runtime speedup using multiple gpus, use the --multi_gpu flag:
+
+```bash
+$ CUDA_VISIBLE_DEVICES=0,1,2,3,4 python run.py 
+--reset_context_delta
+--caption_img_path "example_images/captions/COCO_val2014_000000097017.jpg"
+--multi_gpu
+```
+
 ## Citation
 Please cite our work if you use it in your research:
 ```
